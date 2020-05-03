@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Monda|Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static  'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        body, html {
+          height: 100%;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        * {
+          box-sizing: border-box;
+        }
+        .bg-img {
+          /* The image used */
+          background-image: url(/static/images/cover2.jpg);
+          min-height: 800px;
+          /* Center and scale the image nicely */
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;
+          opacity: 0.9;
+        }
+        /* Add styles to the form container */
+        .container {
+          margin: 20px;
+          padding: 16px;
+          background-color: white;
+          width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          border-radius: 25px;
+        }
+        h3{
+          color:#000080;
+        }
+        h5{
+          color:#000080;
+        }
+      </style>
+    </head>
+
+  <!--Body Starts-->
+  <body>
+    <div class="bg-img">
+      <center>
+        <img src="logo.png" class="image mt-5" width="60" height="60" alt="">
+        <h3 class="display-4">MODSY</h3>
+        <h5 class="display-5">Thank You for Visiting</h5>
+        <h3 class="display-4">PROJECT DESIGN SUBMITTED</h3>
+        <div class="col-4 mr-5">
+          <a href="/modsy/login" class="previous">&laquo; Login </a>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

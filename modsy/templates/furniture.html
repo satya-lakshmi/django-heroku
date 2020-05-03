@@ -1,0 +1,153 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static  'css/styles.css' %}">
+<style>
+  .rangeslider {
+    width: 50%;
+    margin: 0 auto;
+    position: absolute;
+  }
+  .myslider {
+    -webkit-appearance: none;
+    background: white;
+    width: 100%;
+    height: 20px;
+    opacity: 0.8;
+    margin-top: 180px;
+  }
+  .myslider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #000080;
+    width: 33%;
+    height: 20px;
+  }
+  .col-4 {
+    text-align: center;
+  }
+  .myslider:hover {
+    opacity: 1;
+  }
+  .image {
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+  }
+  .image>img {
+    position: absolute;
+    display: none;
+  }
+  .image>img.visible,
+  .image>img:first-child {
+    display: block;
+  }
+  #sliderOutput>div {
+    display: none;
+  }
+  #sliderOutput>div.visible,
+  #sliderOutput>div:first-child {
+    display: block;
+  }
+  #p1{
+    height: 10px;}
+</style>
+
+<!-- Script tags-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
+<!-- The NAVBAR STARTS-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand" href="MODSY">
+      <img src="/static/images/logo.png" width="40" height="40" alt="">
+    </a>
+  </nav>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><b>How it works? <span class="sr-only">(current)</span></b></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Pricing</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Style quiz</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Examples</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Blog</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>FAQ</b></a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/modsy/rooms"><button type="button" class="btn2  mt-1">Start a Project</button></a></li>
+    </ul>
+  </div>
+</nav>
+<!-- The NAVBAR ends-->
+
+<center>
+  <div class="container-3 mt-5 ml-5" >
+    <h4><center>How finished is your space?</center></h4>
+    <p><center>Whether your room is completely empty or you're just looking for those last pieces to bring your space together, we can help!
+</center>
+
+<!-- Image silding on the basis of range slider-->
+<div class="image mt-3 mb-3" id="sliderImages">
+  <img src="/static/images/1.jpg" width="400" height="180"><!--Image1-->
+  <img src="/static/images/2.jpg" width="400" height="180"><!--Image2-->
+  <img src="/static/images/3.jpg" width="400" height="180"><!--Image3-->
+</div><br><!-- End of Image sliding-->
+<!--Range slider starts-->
+<div class="rangeslider">
+  <input type="range" min="1" max="3" value="1" class="myslider" id="sliderRange">
+  <div class="container">
+    <div id="sliderOutput">
+      <div class="col-4" id="range_1">
+        <h6 class="display-6 mt-3" ><b><center>Starting from scratch</center></b></h6>
+        <p class="demo"><center>I'm designing the room </p>
+      </div>
+      <div class="col-4" id="range_2">
+        <h6 class="display-6 mt-3"><b>Somewhere in Between</b></h6>
+        <p class="demo">I'm designing around a few pieces I already own</p>
+      </div>
+      <div class="col-4" id="range_3">
+        <h6 class="display-6 mt-3"><b>Mostly furnished</b></h6>
+        <p class="demo">I want to put the finishing touches on my room</p>
+      </div>
+    </div><!--End of Range slider-->
+    
+    <!-- The previous and Next Buttons-->
+    <div class="row mb-3 mt-3">
+      <div class="col-4 mr-5">
+        <a href="/modsy/goals" class="previous">&laquo; Home</a>
+      </div>
+      <div class="col-4 ml-5">
+        <a href="/modsy/styles" class="next" id="room_next">Next &raquo;</a> </div>
+      </div>
+    </div>  
+  </center>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="{% static 'javascript/furniture.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ </body>
+</html>
+{% endblock %}

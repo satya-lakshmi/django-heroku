@@ -1,0 +1,164 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Monda|Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static  'css/styles.css' %}">
+
+<!--Script-->
+<script type="text/javascript">
+  function validation(form)
+  {
+    reg=/^[a-zA-Z0-9_-]{3,15}$/;
+    if(!reg.test(form.username.value))
+    {
+      document.getElementById('uname_error').innerHTML = 'enter valid username without special characters';
+      form.username.focus();
+      return false;
+    }
+    emailfilter=/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/;
+    if(!emailfilter.test(form.email.value))
+    {
+      document.getElementById("name_error").innerHTML = "email must be filled out as gfj@hdh.com";
+      form.email.focus();
+      return false;
+    }
+    if (form.password.value.length < 4) 
+    {
+      document.getElementById('pwd_error').innerHTML = 'passwords must be atleast 4 characters';
+      form.password.focus();
+      return false;
+    }
+  }
+</script>
+  
+<!--NAVBAR STARTS-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand" href="MODSY">
+      <img src="/static/images/logo.png" width="40" height="40" alt="">
+    </a>
+  </nav>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><b>How it works? <span class="sr-only">(current)</span></b></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Pricing</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Style quiz</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>Examples</b></a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="#"><b>Blog</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><b>FAQ</b></a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/modsy/rooms"><button type="button" class="btn2  mt-1">Start a Project</button></a></li>
+    </ul>
+  </div>
+</nav>
+<!--NAVBAR ENDS-->
+</head>
+
+
+<body onload = "isValue();sample();initGoals();issample();initStyles();assample();">
+  <div class="container20">
+    <section id="register" class="bg-light py-5">
+    
+    <!--Success message-->
+      <center>
+        {{ user_form.errors }} 
+        {{ requirements_form.errors }} 
+      {% if messages %}
+      <div class="messages mb-3 bg-white ">
+        {% for message in messages %}
+        <div class="{{ message.tags }}"><h5>{{ message }}</h5></li>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </center>
+    <!-- Success message ends-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header text-white" style="background-color:#000080;">
+          <h4><i class="fas fa-user-plus" ></i>Register</h4>
+        </div>
+        <div class="card-body">
+          <!-- Form Starts-->
+          <form action="{% url 'modsy:user_register' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" name="username" class="form-control" required>
+              <div id="uname_error"></div>
+            </div>
+            <div class="form-group">
+              <input type="" name="room" id="name" value="">
+            </div>
+            <div class="form-group" input type="">
+              <select name="goal" id="goal" multiple> 
+              </select>
+            </div>
+            <div class="form-group">
+              <select name="design" id="design" multiple>
+                </select>
+            </div>
+            <div class="form-group" >
+              <input type="" name="furniture" id="furniture" value="">
+            </div>
+            <div class="form-group">
+              <label for="email">email</label>
+              <input type="text" name="email" id="email" class="form-control" required><br>
+              <div id="name_error" style="color:red;"></div>
+            </div>
+            <div class="form-group">
+              <label for="password2">Password</label>
+              <input type="password" name="password" class="form-control" required>
+              <div id="pwd_error" style="color:red;"></div>
+            </div>
+            <div class="button"><input type="submit" value="Save the Project" style="background-color:#000080;" class="btn btn-secondary btn-block" onclick="return validation(form)">
+          </form>
+          <!-- Form ends-->
+        </div>
+       </div>
+      </div>
+    </div>
+   </div>
+  </section>
+  
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'javascript/script.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/rooms.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/goals.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/styles.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/furn.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/time.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/design.js' %}"></script>
+  <script type="text/javascript" src="{% static 'javascript/goal.js' %}"></script>
+ </body>
+</html>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom styles -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <style>
+    .container20{
+      height: 825px;
+      width: 50%;
+      margin-right: auto;
+      margin-left: auto;
+      border-color: #000080;
+    }
+    a {
+      color: #000080 ;
+    }
+    hr.new1 {
+      border-top: 4px solid #000080;
+    }
+    .button{
+      width: 20%;
+      margin-right: 30%;
+    }
+  </style>
+
+<!--The NAVBAR Starts-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand" href="#">
+        <img src="../static/images/logo.png" width="40" height="40" alt="">
+      </a>
+    </nav>
+    <a class="navbar-brand" href="#"><b>MODSY</b></a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><b>How it works? <span class="sr-only">(current)</span></b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Pricing</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Style quiz</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Examples</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Blog</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>FAQ</b></a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="dashboard">Welcome {{user.username}}</a></li>
+        <li><a href="/modsy/logout"><button type="button" class="btn2  ">Logout</button></a></li>
+      </ul>
+    </div>
+  </nav>
+</head>
+<!--NAVBAR ENDS-->
+
+<body>
+  <div class="container20 mt-4">
+    <center>
+      <h3 class="display-5 mt-2"><b>Account Details</b></h3>
+    </center>
+    <!--Your Account Details-->
+    <h3 class="display-5 mt-5 ml-3"><u>Your Account Details</u></h3>
+    <hr class="new1">
+    <p class="p3 ml-4 mt-4"><b>Username: </b>{{request.user.project.user}}</p>
+    <p class="p3 ml-4 mt-4"><b>Email: </b>{{user.email}}</p>
+    <a href="account/edit/" class="button ml-2">Edit Profile</a>
+    <a href="/" class="button ml-2">Messages</a>
+
+    <hr class="new2">
+
+    <!--Your Project-->
+    {% if request.user.is_superuser %}
+    <h3 class="display-5 mt-4 ml-3"><u>Your Project</u></h3>
+    <hr class="new1">
+    <h3><center>No projects</center></h3>
+    <!--Room-->
+    {% else %}
+    <p class="p3 ml-4 mt-4"><b><u>ROOM</u>:<br></b>{{request.user.project.room}}</p>
+    <hr class="new2">
+    
+    <!--Goals-->
+    <p class="p4 ml-4"><b><u>GOALS</u>:</b>
+      {% for goal in request.user.project.goal.all %}
+      <br>{{goal}}
+      {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+
+    </p>
+    
+    <hr class="new2">
+    <!--Furniture-->
+    <p class="p5 ml-4"><b><u>FURNITURE</u>:</b><br>{{request.user.project.furniture}}</p>
+    <hr class="new2">
+
+    <!--Designs-->
+    <p class="p4 ml-4"><b><u>DESIGNS</u>:</b>
+      {% for design in request.user.project.design.all %}
+      <br>{{design}}
+      {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      {% endif %}
+    </p>
+    <hr class="new1">
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ </body>
+</html>
+{% endblock %}

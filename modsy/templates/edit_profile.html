@@ -1,0 +1,79 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom styles -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <style>
+   a {
+      color: #000080 ;
+    }
+  	input {
+  		width: 100%;
+  	}
+  </style>
+  <!--The NAVBAR Starts-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand" href="#">
+        <img src="/static/images/logo.png" width="40" height="40" alt="">
+      </a>
+    </nav>
+    <a class="navbar-brand" href="#"><b>MODSY</b></a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><b>How it works? <span class="sr-only">(current)</span></b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Pricing</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Style quiz</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Examples</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Blog</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>FAQ</b></a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/modsy/dashboard">Welcome {{user.username}}</a></li>
+        <li><a href="/modsy/logout"><button type="button" class="btn2  ">Logout</button></a></li>
+      </ul>
+    </div>
+  </nav>
+</head>
+<!--NAVBAR ENDS-->
+
+
+{% block body %}
+<div class="container mt-3 mb-3">
+    <form method="post">
+
+        {% csrf_token %}
+        <h1>Profile-Edit</h1>
+        <hr>
+
+        {{ form.as_p }}
+        <button type="submit" class="btn2" >Submit</button>
+    </form>
+    <br>
+</div>
+
+{% endblock %}
+
+{% endblock %}
