@@ -79,24 +79,18 @@ SOCIALACCOUNT_PROVIDERS = \
         'EXCHANGE_TOKEN': True,
         'LOCALE_FUNC': lambda request: 'kr_KR',
         'VERIFIED_EMAIL': True,
-        'VERSION': 'v2.4'},
-        'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
+        'VERSION': 'v2.4'}
+        
 
         }
 
 
 
 ACCOUNT_AUTHENTICATION_METHOD = "email" # Defaults to username_email
+ACCOUNT_USERNAME_REQUIRED = False       # Defaults to True
 ACCOUNT_EMAIL_REQUIRED = True           # Defaults to False
-#SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_QUERY_EMAIL = ACCOUNT_EMAIL_REQUIRED
+SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_ADAPTER = "modsy.adapters.MyLoginAccountAdapter"
 
