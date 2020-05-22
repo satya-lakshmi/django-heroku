@@ -21,6 +21,8 @@ from django.contrib.auth.decorators import login_required
 from braces.views import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.views import generic
+from django.http import Http404
+
 
 
 
@@ -37,8 +39,36 @@ from . models import design
 from . models import furniture
 from . models import project
 from django.http import HttpResponseRedirect
+import os
+import os
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+import requests
+import json
+
+def chat(request):
+    url = 'https://slack.com/api/users.list'
+    headers = {'Authorization' : 'Bearer xoxp-237781680599-684181847671-1124957889687-9376f016b191bf5d1618eca3aa1b7a6a'}
+    r = requests.get(url, headers=headers)
+    response = json.loads(r.text)
+    all_ids = [member['id'] for member in response['members'] if not member['deleted']]
+    all_names = [member['name'] for member in response['members'] if not member['deleted']]
+    print(all_ids)
+    print(all_names)
+    my_list=zip(all_ids,all_names)
+    print(my_list)
+    username = request.user.username
+    if username in all_names:
+        return render(request,'chat.html',{'liste':my_list})
+    else:
+        raise Http404("User not authenticated")
 
 
+
+
+def index1(request):
+    return render(request, 'chat.html')
 # Create your views here.
 
 # This view is for the home page
@@ -104,6 +134,7 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
+
         if user is not None:
             if user.is_active:
                 auth.login(request, user)
@@ -164,3 +195,6 @@ class UserListView(LoginRequiredMixin, generic.ListView):
     slug_url_kwarg = 'username'
     template_name = 'djang_prvate_chat/templates/users.html'
     login_url = '/login'
+
+
+

@@ -44,13 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'modsy',
     'chat',
+    'django_slack', 
     'django.contrib.sites',
 
     'allauth', # new
     'allauth.account', # new
     'allauth.socialaccount', # new
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook' # new
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.slack',
+ # new
 ]
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -58,6 +61,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
+
+SLACK_CLIENT_ID = os.environ.get('237781680599.1125914945618')
+SLACK_CLIENT_SECRET = os.environ.get('80e9a16ae39528059362af7be0921379')
+SLACK_SCOPE = 'admin,bot',
+SLACK_BOT_TOKEN = 'xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO'
+
 
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
@@ -79,11 +88,9 @@ SOCIALACCOUNT_PROVIDERS = \
         'EXCHANGE_TOKEN': True,
         'LOCALE_FUNC': lambda request: 'kr_KR',
         'VERIFIED_EMAIL': True,
-        'VERSION': 'v2.4'}
+        'VERSION': 'v2.4'},
         
-
         }
-
 
 
 ACCOUNT_AUTHENTICATION_METHOD = "email" # Defaults to username_email
@@ -128,6 +135,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoproject.wsgi.application'
+
 
 
 
@@ -193,3 +201,19 @@ CHAT_WS_SERVER_HOST = 'localhost'
 CHAT_WS_SERVER_PORT = 5001
 CHAT_WS_SERVER_PROTOCOL = 'ws'
 
+
+
+"""curl -X GET --header 'Accept:application/json' --header 'token:xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO' https://slack.com/api"""
+
+
+
+def index1(request):
+    url = 'https://slack.com/api/team.info'
+    headers = {'Authorization' : 'Bearer xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO'}
+    r = requests.get(url, headers=headers)
+    json_response = r.json()
+    if json_response:
+        team_domain = json_response.get('team', {}).get('domain')
+    if team_domain:
+        return HttpResponseRedirect('https://{}.slack.com'.format(team_domain))
+    return HttpResponseRedirect('https://{}.slack.com'.format(team_domain))

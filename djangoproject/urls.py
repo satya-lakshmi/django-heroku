@@ -26,10 +26,6 @@ urlpatterns = [
     path('modsy/', include('modsy.urls')),
     path('', include(('chat.urls','chat'),namespace='chat')),
     path('accounts/', include('allauth.urls')), # new
-
-    
-
-
 ]
 urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -1,0 +1,5 @@
+{% extends django_slack %}
+
+{% block text %}
+{{ user.get_full_name }} just viewed {{ item.title }} ({{ item.content|urlize }}).
+{% endblock %}

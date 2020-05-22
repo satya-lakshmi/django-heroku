@@ -24,9 +24,6 @@ urlpatterns = [
     path('account/password/',views.change_password,name='change_password'),
     path('account/resetpassword/',views.reset_password,name='reset_password'),
     path('users/', views.UserListView.as_view(), name='user_list'),
-
-
-
-
-
+    path('chat',views.index1, name='index1'),
+    path('slack',views.chat, name='chat')
 ]

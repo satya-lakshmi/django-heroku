@@ -48,8 +48,9 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="# mt-2">Welcome {{user.username}}</a></li>      
+      <li><a href="# mt-2"><button type="button" class="btn2">Welcome {{user.username}}</button></a></li>
       <li><a href="/modsy/logout"><button type="button" class="btn2">Log Out</button></a></li>
+
     </ul>
   </div>
 </nav>
@@ -58,11 +59,13 @@
   <!--Container Starts-->
 <div class="container-fluid" style="background-image:url(../static/images/cover2.jpg)">
   <div class="row ml-4">
-    <div class="col-4 mt-5">
-     <div class="container1 mt-5">
+    <div class="col-xs-12 col-sm-6 col-md-8 mt-5">
+     <div class="container1 hidden-xs mt-5">
       <h1 class="display-4 ml-2">Interior Design you dont have to design</h1>
       <p class="para1 ml-2">See your exact room,expertly designed in 3D with actual pieces of furniture from well-known retailers that you can buy on the spot</p>
       <a class="btn1 btn-lg mb-3 ml-4" href="account"role="button">View Account</a>
+      <a href="https://slack.com/oauth/v2/authorize?client_id=237781680599.1152322011617&user_scope=users:read chat:write&redirect_uri=http://127.0.0.1:8000/modsy/slack">
+        <img alt=""Sign in with Slack"" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"/></a>
      </div>
     </div>
   </div>
