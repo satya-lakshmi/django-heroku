@@ -49,7 +49,7 @@ import json
 
 def chat(request):
     url = 'https://slack.com/api/users.list'
-    headers = {'Authorization' : 'Bearer xoxp-237781680599-684181847671-1124957889687-9376f016b191bf5d1618eca3aa1b7a6a'}
+    headers = {'Authorization' : 'Bearer xoxp-237781680599-684181847671-1125695578967-f30363db4e120d9e1c485eff6dc8c9b4'}
     r = requests.get(url, headers=headers)
     response = json.loads(r.text)
     all_ids = [member['id'] for member in response['members'] if not member['deleted']]
