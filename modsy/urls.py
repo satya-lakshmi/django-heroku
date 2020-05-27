@@ -25,5 +25,9 @@ urlpatterns = [
     path('account/resetpassword/',views.reset_password,name='reset_password'),
     path('users/', views.UserListView.as_view(), name='user_list'),
     path('chat',views.index1, name='index1'),
-    path('slack',views.chat, name='chat')
+    path('slack',views.chat, name='chat'),
+    path('target_view/', views.chat1, name='chat1'),
+    path('chat1',views.index2, name='index2'),
+
+
 ]

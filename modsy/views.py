@@ -22,15 +22,7 @@ from braces.views import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.views import generic
 from django.http import Http404
-
-
-
-
-
-
 from django.contrib.auth import authenticate, login
-
-
 from django import forms
 
 from . models import room
@@ -46,11 +38,17 @@ logging.basicConfig(level=logging.DEBUG)
 
 import requests
 import json
-
+import os
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
+SECRET = os.environ.get('API_KEY')
+print(SECRET)
 def chat(request):
     url = 'https://slack.com/api/users.list'
-    headers = {'Authorization' : 'Bearer xoxp-237781680599-684181847671-1125695578967-f30363db4e120d9e1c485eff6dc8c9b4'}
+    headers = {'Authorization' : 'Bearer {}'.format(SECRET)}
     r = requests.get(url, headers=headers)
+    print(headers)
+
     response = json.loads(r.text)
     all_ids = [member['id'] for member in response['members'] if not member['deleted']]
     all_names = [member['name'] for member in response['members'] if not member['deleted']]
@@ -60,12 +58,33 @@ def chat(request):
     print(my_list)
     username = request.user.username
     if username in all_names:
-        return render(request,'chat.html',{'liste':my_list})
+        return render(request,'chat.html',{'liste':my_list,'secret':SECRET})
     else:
         raise Http404("User not authenticated")
 
+def chat1(request):
+    value1 = request.GET.get('id')
+    value2 = request.GET.get('msg')
+
+    print(value1,value2)
+    return HttpResponse(value1)
 
 
+
+def index2(request):
+    url = 'https://slack.com/api/users.list'
+    headers = {'Authorization' : 'Bearer {}'.format(SECRET)}
+    r = requests.get(url, headers=headers)
+
+    response = json.loads(r.text)
+    print(response)
+    all_ids = [member['id'] for member in response['members'] if not member['deleted']]
+    all_names = [member['name'] for member in response['members'] if not member['deleted']]
+    print(all_ids)
+    print(all_names)
+    my_list=zip(all_ids,all_names)
+    print(my_list)
+    return render(request,'chat1.html',{'liste':my_list})
 
 def index1(request):
     return render(request, 'chat.html')

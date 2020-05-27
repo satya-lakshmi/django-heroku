@@ -258,7 +258,7 @@ a{
       </div>
     </div>
      <script type="text/javascript">
-   const personArr = document.querySelectorAll(".person_name");
+      const personArr = document.querySelectorAll(".person_name");
    personArr.forEach(item => {
     item.addEventListener('click',() => {
     document.querySelector("#insertName").innerText = "";
@@ -268,36 +268,32 @@ a{
 
   })
 })
-   var form = document.getElementById('msg_send_btn');
-      form.onclick = function(event) {
-        event.preventDefault();
-        var id = document.getElementById("insertName").innerText;
-        var input = document.getElementById("write_msg").value
-        var a = document.getElementById("myVar").value
-        b = a.slice(2,-2);
-
-        console.log(input)
-        console.log(id)
-        var mData = new FormData();
-        mData.append('token',"{{secret}}");
-        mData.append('channel', id);
-        mData.append('text',input);
-        mData.append('as_user', 'true');
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST','https://slack.com/api/chat.postMessage', true);
-        // Set up a handler for when the request finishes.
-        xhr.onload = function () {
-          if (xhr.status === 200) {
-            console.log("posted");
-          } else {alert('An error occurred!');
-      }
-    };
-    xhr.send(mData);
-  }
 
 
-   
-  </script>
-</body>
+      $(document).ready(function() {
 
+        $("#msg_send_btn").click(function() {
+          var msg=$("#write_msg").val()
+          var id=$("#insertName").html()
+
+          $.ajax({
+            url: "target_view/",
+            type: "GET",
+            data: {
+              id:id,
+              msg:msg,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success : function(json) {
+              alert("Successfully sent the id= "+id+" msg= "+msg+" to Django");
+            },
+            error : function(xhr,errmsg,err) {
+              alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
+
+            }
+          })
+        })
+      })
+          </script>
+        </body>
 </html>
