@@ -8,13 +8,11 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
 env
 
 build/
 develop-eggs/
 dist/
-fixtures/
 downloads/
 eggs/
 .eggs/
@@ -89,7 +87,6 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
-env/
 .vscode
 # Spyder project settings
 .spyderproject
@@ -104,12 +101,3 @@ env/
 # mypy
 .mypy_cache/
 
-.DS_Store
-*.sqlite3
-*.pyc
-*.db
-*.pid
-# django migrations 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
