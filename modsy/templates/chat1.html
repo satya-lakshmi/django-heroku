@@ -216,7 +216,7 @@ a{
     <h3 class=" text-center">Slack Users List</h3>
     <div class="messaging">
       <div class="inbox_msg">
-        <div class="inbox_people">\
+        <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
               <h4>Recent</h4>
@@ -268,32 +268,26 @@ a{
 
   })
 })
+   $(document).ready(function() {
+    $("#msg_send_btn").click(function() {
+      var msg=$("#write_msg").val()
+      var id=$("#insertName").html()
+      $.ajax({
+        url: 'target_view/',
+        data: {
+          'id': id,
+          'msg':msg
+          },///Users/azky/Desktop/img_1.jpeg'
+          dataType:'json',
+          success:function (data) {
+            alert("Successfully sent the message");
+        },
+        error:function () {
 
-
-      $(document).ready(function() {
-
-        $("#msg_send_btn").click(function() {
-          var msg=$("#write_msg").val()
-          var id=$("#insertName").html()
-
-          $.ajax({
-            url: "target_view/",
-            type: "GET",
-            data: {
-              id:id,
-              msg:msg,
-              csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-            success : function(json) {
-              alert("Successfully sent the id= "+id+" msg= "+msg+" to Django");
-            },
-            error : function(xhr,errmsg,err) {
-              alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText);
-
-            }
-          })
-        })
+        }
       })
-          </script>
-        </body>
+    })
+  })
+</script>
+</body>
 </html>

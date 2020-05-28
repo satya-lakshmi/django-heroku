@@ -40,6 +40,10 @@ import requests
 import json
 import os
 from dotenv import load_dotenv, find_dotenv
+from django.http import JsonResponse
+import os
+from slack import WebClient
+from slack.errors import SlackApiError
 load_dotenv(find_dotenv())
 SECRET = os.environ.get('API_KEY')
 print(SECRET)
@@ -65,25 +69,29 @@ def chat(request):
 def chat1(request):
     value1 = request.GET.get('id')
     value2 = request.GET.get('msg')
-
     print(value1,value2)
-    return HttpResponse(value1)
-
+    client = WebClient(os.environ.get('API_KEY'))
+    try:
+        response = client.chat_postMessage(
+        channel=value1,
+        text=value2)
+        assert response["message"]["text"] == value2
+    except SlackApiError as e:
+        assert e.response["ok"] is False
+        assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
+        print(f"Got an error: {e.response['error']}")
+    return render(request,'login.html')
 
 
 def index2(request):
     url = 'https://slack.com/api/users.list'
     headers = {'Authorization' : 'Bearer {}'.format(SECRET)}
     r = requests.get(url, headers=headers)
-
     response = json.loads(r.text)
     print(response)
     all_ids = [member['id'] for member in response['members'] if not member['deleted']]
     all_names = [member['name'] for member in response['members'] if not member['deleted']]
-    print(all_ids)
-    print(all_names)
     my_list=zip(all_ids,all_names)
-    print(my_list)
     return render(request,'chat1.html',{'liste':my_list})
 
 def index1(request):
