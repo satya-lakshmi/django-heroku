@@ -45,7 +45,7 @@ import os
 from slack import WebClient
 from slack.errors import SlackApiError
 load_dotenv(find_dotenv())
-SECRET = os.environ.get('API_KEY')
+SECRET = os.environ.get('API')
 print(SECRET)
 def chat(request):
     url = 'https://slack.com/api/users.list'
@@ -70,7 +70,7 @@ def chat1(request):
     value1 = request.GET.get('id')
     value2 = request.GET.get('msg')
     print(value1,value2)
-    client = WebClient(os.environ.get('API_KEY'))
+    client = WebClient(os.environ.get('API'))
     try:
         response = client.chat_postMessage(
         channel=value1,
