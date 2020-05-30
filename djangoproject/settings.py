@@ -35,6 +35,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
+
 
 # Application definition
 
@@ -113,6 +117,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'djangoproject.urls'
@@ -190,12 +196,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/images/')
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
+#  Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 CHAT_WS_SERVER_HOST = 'localhost'
 CHAT_WS_SERVER_PORT = 5001
 CHAT_WS_SERVER_PROTOCOL = 'ws'
@@ -206,13 +219,3 @@ CHAT_WS_SERVER_PROTOCOL = 'ws'
 
 
 
-def index1(request):
-    url = 'https://slack.com/api/team.info'
-    headers = {'Authorization' : 'Bearer xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO'}
-    r = requests.get(url, headers=headers)
-    json_response = r.json()
-    if json_response:
-        team_domain = json_response.get('team', {}).get('domain')
-    if team_domain:
-        return HttpResponseRedirect('https://{}.slack.com'.format(team_domain))
-    return HttpResponseRedirect('https://{}.slack.com'.format(team_domain))

@@ -66,23 +66,7 @@ def chat(request):
     else:
         raise Http404("User not authenticated")
 
-def chat1(request):
-    value1 = request.GET.get('id')
-    value2 = request.GET.get('msg')
-    print(value1,value2)
-    client = WebClient(os.environ.get('API'))
-    try:
-        response = client.chat_postMessage(
-        channel=value1,
-        text=value2)
-        assert response["message"]["text"] == value2
-    except SlackApiError as e:
-        assert e.response["ok"] is False
-        assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
-        print(f"Got an error: {e.response['error']}")
-    return render(request,'login.html')
-
-
+    
 def index2(request):
     url = 'https://slack.com/api/users.list'
     headers = {'Authorization' : 'Bearer {}'.format(SECRET)}
@@ -92,6 +76,19 @@ def index2(request):
     all_ids = [member['id'] for member in response['members'] if not member['deleted']]
     all_names = [member['name'] for member in response['members'] if not member['deleted']]
     my_list=zip(all_ids,all_names)
+    value1 = request.GET.get('id')
+    value2 = request.GET.get('msg')
+    print(value1,value2)
+    client = WebClient(os.getenv('API'))
+    try:
+        response = client.chat_postMessage(
+            channel=value1,text=value2)
+        assert response["message"]["text"] == value2
+    except SlackApiError as e:
+        assert e.response["ok"] is False
+        assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
+        print(f"Got an error: {e.response['error']}")
+
     return render(request,'chat1.html',{'liste':my_list})
 
 def index1(request):

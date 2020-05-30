@@ -216,7 +216,7 @@ a{
     <h3 class=" text-center">Slack Users List</h3>
     <div class="messaging">
       <div class="inbox_msg">
-        <div class="inbox_people">
+        <div class="inbox_people">\
           <div class="headind_srch">
             <div class="recent_heading">
               <h4>Recent</h4>
@@ -251,8 +251,6 @@ a{
                 <input type="text" id="write_msg" placeholder="Type a message" />
                 <input type="hidden" id="myVar" name="variable" value="{{ secret }}">
                 <button id="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                <input type="text" id="write_msg" placeholder="{{ data }}" />
-
               </div>
             </div>
           </div>
@@ -260,37 +258,46 @@ a{
       </div>
     </div>
      <script type="text/javascript">
-      const personArr = document.querySelectorAll(".person_name");
+   const personArr = document.querySelectorAll(".person_name");
    personArr.forEach(item => {
     item.addEventListener('click',() => {
     document.querySelector("#insertName").innerText = "";
     document.querySelector("#insertName").innerText = `${item.innerText}-${item.id}`;
     document.querySelector("#insertName").innerText =`${item.id}`;
-
+            
 
   })
 })
-   
-    $(document).ready(function() {
-    $("#msg_send_btn").click(function() {
-      var msg=$("#write_msg").val()
-      var id=$("#insertName").html()
-      $.ajax({
-        url: 'chat1',
-        data: {
-          'id': id,
-          'msg':msg
-          },///Users/azky/Desktop/img_1.jpeg'
-          success:function (data) {
-            alert("Successfully sent the message");
-        },
-        error:function () {
+   var form = document.getElementById('msg_send_btn');
+      form.onclick = function(event) {
+        event.preventDefault();
+        var id = document.getElementById("insertName").innerText;
+        var input = document.getElementById("write_msg").value
+        var a = document.getElementById("myVar").value
+        b = a.slice(2,-2);
 
-        }
-      })
-    })
-  })
+        console.log(input)
+        console.log(id)
+        var mData = new FormData();
+        mData.append('token',"{{secret}}");
+        mData.append('channel', id);
+        mData.append('text',input);
+        mData.append('as_user', 'true');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','https://slack.com/api/chat.postMessage', true);
+        // Set up a handler for when the request finishes.
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            console.log("posted");
+          } else {alert('An error occurred!');
+      }
+    };
+    xhr.send(mData);
+  }
+
+
    
-</script>
+  </script>
 </body>
+
 </html>
