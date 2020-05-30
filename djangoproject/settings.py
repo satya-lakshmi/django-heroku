@@ -64,7 +64,7 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-SITE_ID = 1
+SITE_ID = 2
 
 
 
@@ -103,6 +103,7 @@ ACCOUNT_ADAPTER = "modsy.adapters.MyLoginAccountAdapter"
 
 SOCIALACCOUNT_ADAPTER = 'modsy.adapters.MySocialAccountAdapter'
 LOGIN_REDIRECT_URL = "/modsy/dashboard"
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 
 
@@ -216,7 +217,6 @@ if os.getcwd() == '/app':
 
     #Honor the 'X-forwarded-Proto' header for request.is_secure().
 
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 """curl -X GET --header 'Accept:application/json' --header 'token:xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO' https://slack.com/api"""
 
