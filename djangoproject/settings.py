@@ -206,7 +206,17 @@ CHAT_WS_SERVER_HOST = 'localhost'
 CHAT_WS_SERVER_PORT = 5001
 CHAT_WS_SERVER_PROTOCOL = 'ws'
 
+if os.getcwd() == '/app':
 
+    import dj_database_url
+
+    db_from_env = dj_database_url.config(conn_max_age=500)
+
+    DATABASES['default'].update(db_from_env)
+
+    #Honor the 'X-forwarded-Proto' header for request.is_secure().
+
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 """curl -X GET --header 'Accept:application/json' --header 'token:xoxb-237781680599-1126148466947-kI0FF91IR6Z6vVCuZgaPyELO' https://slack.com/api"""
 
