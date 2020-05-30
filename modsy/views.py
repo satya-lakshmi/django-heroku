@@ -79,7 +79,7 @@ def index2(request):
     value1 = request.GET.get('id')
     value2 = request.GET.get('msg')
     print(value1,value2)
-    client = WebClient(os.getenv('API'))
+    client = WebClient(token=SECRET)
     try:
         response = client.chat_postMessage(
             channel=value1,text=value2)
